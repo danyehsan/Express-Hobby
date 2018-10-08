@@ -15,4 +15,21 @@ router.get('/', function(req, res) {
         })
 })
 
+router.post('/', function(req, res ) {
+    var title = req.body.title
+    Hobby.create({ title: title })
+        .then( function () {
+            res.redirect('/hobbies')
+        })
+})
+
+router.delete('/:id', function(req, res) {
+    Hobby.findById(req.params.id)
+        .then( function(hobby) {
+            hobby.destroy()
+        })
+        .then( function() {
+            return res.redirect('/hobbies')
+        })
+})
 module.exports = router

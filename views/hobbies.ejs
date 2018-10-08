@@ -28,6 +28,14 @@
                             <td><%= hobby.title %> </td>
                     <% }) %>
                 </tbody>
+                <% var url = "/hobbies" + hobby.id + "?_method=DELETE"
+                <tr>
+                    <td><%= hobby.title %></td>
+                    <td>
+                        <form method="POST" action=<%= url %>
+                            <button class="btn red">Delete</button>
+                        </form>
+                    </td>
             </table>
         </div>
     </body>
