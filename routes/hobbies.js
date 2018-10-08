@@ -9,11 +9,14 @@ var hobbies = [
 ]
 
 router.get('/', function(req, res) {
-    Hobby.all()
-        .then( function(hobbies) {
-            return res.render('hobbies', { hobbies: hobbies })
-        })
-})
+    Hobby.all({
+        order: [
+            ['createdAt', 'ASC']
+        ]
+    })
+    .then( function(movies) {
+        
+    })
 
 router.post('/', function(req, res ) {
     var title = req.body.title
@@ -31,5 +34,22 @@ router.delete('/:id', function(req, res) {
         .then( function() {
             return res.redirect('/hobbies')
         })
+})
+
+router.get('/:id/edit', function(req, res) {
+    Hobby.findById(req.params.id)
+        .then( function(hobby) {
+            return res.render('edit', { hobby: hobby })
+        })
+})
+
+router.put('/:id', function(req, res) {
+    Hobby.update(
+        { title: req.body.title },
+        { where: { id: req.params.id }}
+    )
+    .then(function(){
+        return res.redirect('/movies')
+    })
 })
 module.exports = router
