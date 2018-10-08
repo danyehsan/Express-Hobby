@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+var Hobby = require('../models').Hobby;
 
 var hobbies = [
     {id: 1, title: 'Motorcycles' },
@@ -8,7 +9,10 @@ var hobbies = [
 ]
 
 router.get('/', function(req, res) {
-    res.render('movies', { movies: movies })
+    Hobby.all()
+        .then( function(hobbies) {
+            return res.render('hobbies', { hobbies: hobbies })
+        })
 })
 
 module.exports = router
